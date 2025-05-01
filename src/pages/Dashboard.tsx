@@ -1,4 +1,3 @@
-
 import { DollarSign, CreditCard, KeyRound, ArrowUp, ArrowDown } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -6,6 +5,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Transaction } from "@/types/models";
 import { useState } from "react";
 import { CryptocurrencyList } from "@/components/CryptocurrencyList";
+import { CryptoIcon } from "@/components/CryptoIcon";
 
 // Mock data for dashboard
 const mockTransactions: Transaction[] = [
@@ -59,6 +59,10 @@ const Dashboard = () => {
     }).format(date);
   };
 
+  // Calculate the total USD value based on current ETH price
+  const ethUsdPrice = 4320.87; // Updated ETH price
+  const totalUsdValue = balance * ethUsdPrice;
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -75,7 +79,7 @@ const Dashboard = () => {
           <CardContent>
             <div className="text-2xl font-bold">{balance} ETH</div>
             <p className="text-xs text-muted-foreground">
-              ~$7,260.45 USD
+              ~${totalUsdValue.toLocaleString(undefined, { maximumFractionDigits: 2 })} USD
             </p>
           </CardContent>
         </Card>
@@ -134,7 +138,7 @@ const Dashboard = () => {
                   </p>
                 </div>
                 <div className="ml-auto font-medium">
-                  <span className={tx.type === 'incoming' ? 'transaction-positive' : 'transaction-negative'}>
+                  <span className={tx.type === 'incoming' ? 'text-green-500' : 'text-red-500'}>
                     {tx.type === 'incoming' ? '+' : '-'}{tx.amount} {tx.currency}
                   </span>
                 </div>

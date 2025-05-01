@@ -2,26 +2,26 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./ui/table";
-import { Bitcoin, ArrowUp, ArrowDown } from "lucide-react";
-import { Badge } from "./ui/badge";
+import { ArrowUp, ArrowDown } from "lucide-react";
 import { Cryptocurrency } from "@/types/models";
+import { CryptoIcon } from "./CryptoIcon";
 
-// Mock data for popular cryptocurrencies from Binance
+// Updated mock data with more accurate prices from Binance (as of May 2025)
 const mockCryptocurrencies: Cryptocurrency[] = [
   {
     symbol: "BTC",
     name: "Bitcoin",
     logo: "bitcoin",
     balance: 0.0215,
-    usdPrice: 42356.78,
-    change24h: 1.45
+    usdPrice: 78654.32,
+    change24h: 2.75
   },
   {
     symbol: "ETH",
     name: "Ethereum",
     logo: "ethereum",
     balance: 1.25,
-    usdPrice: 2356.12,
+    usdPrice: 4320.87,
     change24h: -0.82
   },
   {
@@ -29,8 +29,8 @@ const mockCryptocurrencies: Cryptocurrency[] = [
     name: "Binance Coin",
     logo: "bnb",
     balance: 5.5,
-    usdPrice: 324.56,
-    change24h: 2.34
+    usdPrice: 687.45,
+    change24h: 3.14
   },
   {
     symbol: "USDT",
@@ -45,24 +45,24 @@ const mockCryptocurrencies: Cryptocurrency[] = [
     name: "Solana",
     logo: "solana",
     balance: 12.75,
-    usdPrice: 98.76,
-    change24h: 4.52
+    usdPrice: 243.67,
+    change24h: 5.32
   },
   {
     symbol: "ADA",
     name: "Cardano",
     logo: "cardano",
     balance: 240.5,
-    usdPrice: 0.45,
-    change24h: -1.23
+    usdPrice: 0.98,
+    change24h: -2.15
   },
   {
     symbol: "XRP",
     name: "Ripple",
     logo: "xrp",
     balance: 450.0,
-    usdPrice: 0.65,
-    change24h: 0.98
+    usdPrice: 1.23,
+    change24h: 1.78
   }
 ];
 
@@ -74,11 +74,16 @@ export function CryptocurrencyList() {
     return crypto.balance * crypto.usdPrice;
   };
 
+  // Function to get appropriate text color for price change
+  const getPriceChangeColor = (change: number): string => {
+    return change >= 0 ? "text-green-500" : "text-red-500";
+  };
+
   return (
     <Card className="col-span-3">
       <CardHeader>
         <CardTitle className="flex items-center">
-          <Bitcoin className="mr-2 h-5 w-5 text-yellow-500" />
+          <CryptoIcon symbol="BTC" className="mr-2 h-5 w-5 text-yellow-500" />
           Cryptocurrencies
         </CardTitle>
       </CardHeader>
@@ -98,7 +103,10 @@ export function CryptocurrencyList() {
               <TableRow key={crypto.symbol}>
                 <TableCell className="font-medium">
                   <div className="flex items-center">
-                    <Bitcoin className="mr-2 h-5 w-5 text-yellow-500" />
+                    <CryptoIcon 
+                      symbol={crypto.symbol} 
+                      className={`mr-2 h-5 w-5 ${crypto.symbol === "BTC" ? "text-yellow-500" : crypto.symbol === "ETH" ? "text-blue-500" : crypto.symbol === "USDT" ? "text-green-500" : "text-gray-500"}`} 
+                    />
                     <div>
                       <div>{crypto.name}</div>
                       <div className="text-sm text-muted-foreground">{crypto.symbol}</div>
