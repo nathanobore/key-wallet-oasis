@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Transaction } from "@/types/models";
 import { useState } from "react";
+import { CryptocurrencyList } from "@/components/CryptocurrencyList";
 
 // Mock data for dashboard
 const mockTransactions: Transaction[] = [
@@ -105,6 +106,8 @@ const Dashboard = () => {
           </CardContent>
         </Card>
       </div>
+
+      <CryptocurrencyList />
       
       <Card className="col-span-3">
         <CardHeader>

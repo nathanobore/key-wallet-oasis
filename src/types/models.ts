@@ -31,3 +31,12 @@ export interface Contact {
   name: string;
   publicKey: string;
 }
+
+export interface Cryptocurrency {
+  symbol: string;
+  name: string;
+  logo: string;
+  balance: number;
+  usdPrice: number;
+  change24h: number;
+}
